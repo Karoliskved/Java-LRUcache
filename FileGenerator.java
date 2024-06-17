@@ -2,19 +2,31 @@ package fileDistributor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 public class FileGenerator
 {
-	static int dirCount = 500;
 
 	public static void main(String[] args)
 	{
-		String filepath = args[0];
+		if (args.length == 0)
+		{
+			generateTestFiles("");
+		}
+		else
+		{
+			String filepath = args[0];
+			generateTestFiles(filepath + "/");
+		}
+
+	}
+
+	public static void generateTestFiles(String filepath)
+	{
 		File file = new File(filepath);
-		FileDistributor fileDistributor = new FileDistributor();
 		for (int i = 0; i < 10000; i++)
 		{
-			File newFile = new File(filepath + "/testingFile" + i + ".txt");
+			File newFile = new File(filepath + "testingFile" + UUID.randomUUID().toString() + ".txt");
 			try
 			{
 				newFile.createNewFile();
@@ -25,7 +37,5 @@ public class FileGenerator
 				e.printStackTrace();
 			}
 		}
-
 	}
-
 }
